@@ -52,13 +52,13 @@ jobs:
               run: node --version
 
             - name: Check npm version
-              if: ${{ matrix.pm == "npm" }}
+              if: ${{ matrix.pm == npm }}
               run: npm --version
 
             - name: Check Yarn version
-              if: ${{ matrix.pm == "yarn" }}
+              if: ${{ matrix.pm == yarn }}
               run: yarn --version
 
             - name: Check pnpm version
-              if: ${{ matrix.pm == "pnpm" }}
+              if: ${{ matrix.pm == pnpm }}
               run: pnpm --version
