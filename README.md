@@ -4,7 +4,7 @@ A setup action for Node.js.
 
 ## Usage
 
-See [action.yml](./action.yml).
+Add this action to the workflow:
 
 ```yaml
 - name: Setup Node
