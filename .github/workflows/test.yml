@@ -12,7 +12,7 @@ on:
 
 jobs:
     test:
-        name: ${{ runner.os }} / Node ${{ matrix.node }} / ${{ matrix.pm }} / frozen=${{ matrix.frozen-lockfile }}
+        name: ${{ matrix.os }} / node ${{ matrix.node }} / ${{ matrix.pm }} / frozen=${{ matrix.frozen-lockfile }}
         runs-on: ${{ matrix.os }}
 
         strategy:
