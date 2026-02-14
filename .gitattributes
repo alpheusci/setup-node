@@ -1,0 +1,8 @@
+# Set text files to use LF line endings
+* text eol=lf
+
+# Setup for YAML files
+*.yml linguist-detectable=true
+*.yml linguist-documentation=false
+*.yaml linguist-detectable=true
+*.yaml linguist-documentation=false

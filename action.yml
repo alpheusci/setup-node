@@ -1,0 +1,72 @@
+# yaml-language-server: $schema=https://www.schemastore.org/github-action.json
+
+name: Setup Node.js environment
+description: Setup environment for a Node.js project
+
+inputs:
+    node-version:
+        description: Node.js version to use
+        default: lts/*
+
+    package-manager:
+        description: Package manager to use, e.g. npm, yarn, pnpm
+        default: pnpm
+
+    auto-install:
+        description: Whether to install Node.js dependencies
+        default: "true"
+
+    frozen-lockfile:
+        description: Whether to frozen lockfile
+        default: "true"
+
+runs:
+    using: composite
+    steps:
+        - name: Install pnpm
+          if: ${{ inputs.package-manager == "pnpm" }}
+          uses: pnpm/action-setup@v4
+          with:
+              version: latest
+
+        - name: Install Node.js
+          uses: actions/setup-node@v6
+          with:
+              node-version: ${{ inputs.node-version }}
+              cache: ${{ inputs.package-manager }}
+
+        # npm
+
+        - name: Install Node.js dependencies (npm)
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "npm" && inputs.frozen-lockfile == "true" }}
+          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          run: npm ci
+
+        - name: Install Node.js dependencies (npm, no-frozen-lockfile)
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "npm" && inputs.frozen-lockfile == "false" }}
+          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          run: npm install
+
+        # yarn
+
+        - name: Install Node.js dependencies (Yarn)
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "yarn" && inputs.frozen-lockfile == "true" }}
+          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          run: yarn install --immutable
+
+        - name: Install Node.js dependencies (Yarn, no-frozen-lockfile)
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "yarn" && inputs.frozen-lockfile == "false" }}
+          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          run: yarn install
+
+        # pnpm
+
+        - name: Install Node.js dependencies (pnpm)
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "pnpm" && inputs.frozen-lockfile == "true" }}
+          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          run: pnpm install --frozen-lockfile
+
+        - name: Install Node.js dependencies (pnpm, no-frozen-lockfile)
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "pnpm" && inputs.frozen-lockfile == "false" }}
+          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          run: pnpm install
