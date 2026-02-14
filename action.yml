@@ -3,6 +3,9 @@
 name: Alpheus - Setup Node.js environment
 description: Setup environment for a Node.js project
 author: Alpheus
+branding:
+    icon: settings
+    color: white
 
 inputs:
     node-version:
