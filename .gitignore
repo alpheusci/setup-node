@@ -1,3 +1,10 @@
 # Caches
 __MACOSX/
 .DS_Store
+
+# Node
+/node_modules/
+
+# Yarn
+/.yarn/
+/.pnp.cjs
