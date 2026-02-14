@@ -9,7 +9,7 @@ inputs:
         default: lts/*
 
     package-manager:
-        description: Package manager to use, e.g. npm, yarn, pnpm
+        description: Node.js package manager to use
         default: pnpm
 
     auto-install:
