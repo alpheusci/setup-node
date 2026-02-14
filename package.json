@@ -1,3 +1,4 @@
 {
-    "name": "@alpheusci/setup-node"
+    "name": "@alpheusci/setup-node",
+    "private": true
 }
