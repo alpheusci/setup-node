@@ -39,35 +39,35 @@ runs:
         # npm
 
         - name: Install Node.js dependencies (npm)
-          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "npm" && inputs.frozen-lockfile == "true" }}
-          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == npm && inputs.frozen-lockfile == "true" }}
+          shell: ${{ runner.os == Windows && pwsh || bash }}
           run: npm ci
 
         - name: Install Node.js dependencies (npm, no-frozen-lockfile)
-          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "npm" && inputs.frozen-lockfile == "false" }}
-          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == npm && inputs.frozen-lockfile == "false" }}
+          shell: ${{ runner.os == Windows && pwsh || bash }}
           run: npm install
 
         # yarn
 
         - name: Install Node.js dependencies (Yarn)
-          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "yarn" && inputs.frozen-lockfile == "true" }}
-          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == yarn && inputs.frozen-lockfile == "true" }}
+          shell: ${{ runner.os == Windows && pwsh || bash }}
           run: yarn install --immutable
 
         - name: Install Node.js dependencies (Yarn, no-frozen-lockfile)
-          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "yarn" && inputs.frozen-lockfile == "false" }}
-          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == yarn && inputs.frozen-lockfile == "false" }}
+          shell: ${{ runner.os == Windows && pwsh || bash }}
           run: yarn install
 
         # pnpm
 
         - name: Install Node.js dependencies (pnpm)
-          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "pnpm" && inputs.frozen-lockfile == "true" }}
-          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == pnpm && inputs.frozen-lockfile == "true" }}
+          shell: ${{ runner.os == Windows && pwsh || bash }}
           run: pnpm install --frozen-lockfile
 
         - name: Install Node.js dependencies (pnpm, no-frozen-lockfile)
-          if: ${{ inputs.auto-install == "true" && inputs.package-manager == "pnpm" && inputs.frozen-lockfile == "false" }}
-          shell: ${{ runner.os == "Windows" && "pwsh" || "bash" }}
+          if: ${{ inputs.auto-install == "true" && inputs.package-manager == pnpm && inputs.frozen-lockfile == "false" }}
+          shell: ${{ runner.os == Windows && pwsh || bash }}
           run: pnpm install
