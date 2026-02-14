@@ -1,7 +1,8 @@
 # yaml-language-server: $schema=https://www.schemastore.org/github-action.json
 
-name: Setup Node.js environment
+name: Alpheus - Setup Node.js environment
 description: Setup environment for a Node.js project
+author: Alpheus
 
 inputs:
     node-version:
