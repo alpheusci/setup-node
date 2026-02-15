@@ -32,10 +32,10 @@ jobs:
                       code: windows-latest
 
                 node:
-                    - 20
-                    - 22
-                    - 24
-                    - 25
+                    - "20.1.0"
+                    - "22.2.0"
+                    - "24.3.0"
+                    - latest
 
                 pm:
                     - name: npm
@@ -48,9 +48,6 @@ jobs:
                       code: npm
                       version: latest
 
-                    - name: Yarn
-                      code: yarn
-                      version: "3.0.0"
                     - name: Yarn
                       code: yarn
                       version: "4.0.0"
@@ -86,8 +83,30 @@ jobs:
                   package-manager-version: ${{ matrix.pm.version }}
                   frozen-lockfile: ${{ matrix.frozen-lockfile.code }}
 
-            - name: Check Node.js version
-              run: node --version
+            - name: Validate Node.js version
+              if: ${{ matrix.node != 'latest' }}
+              shell: bash
+              run: |
+                  EXPECTED="${{ matrix.node }}"
+                  ACTUAL="$(node --version)"
 
-            - name: Check package manager version
-              run: ${{ matrix.pm.code }} --version
+                  ACTUAL="${ACTUAL#v}"
+
+                  if [ "$EXPECTED" != "$ACTUAL" ]; then
+                      echo "Expected node@$EXPECTED, but got node@$ACTUAL"
+                      exit 1
+                  fi
+
+            - name: Validate package manager version
+              if: ${{ matrix.pm.version != 'latest' }}
+              shell: bash
+              run: |
+                  EXPECTED="${{ matrix.pm.version }}"
+                  ACTUAL="$(${{ matrix.pm.code }} --version)"
+
+                  ACTUAL="${ACTUAL#v}"
+
+                  if [ "$EXPECTED" != "$ACTUAL" ]; then
+                      echo "Expected ${{ matrix.pm.code }}@$EXPECTED, but got ${{ matrix.pm.code }}@$ACTUAL"
+                      exit 1
+                  fi
