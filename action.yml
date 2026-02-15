@@ -16,6 +16,10 @@ inputs:
         description: Node.js package manager to use
         default: pnpm
 
+    package-manager-version:
+        description: Node.js package manager version to use
+        default: latest
+
     auto-install:
         description: Whether to install Node.js dependencies
         default: "true"
@@ -31,13 +35,25 @@ runs:
           if: ${{ inputs.package-manager == 'pnpm' }}
           uses: pnpm/action-setup@v4
           with:
-              version: latest
+              version: ${{ inputs.package-manager-version }}
 
         - name: Install Node.js
           uses: actions/setup-node@v6
           with:
               node-version: ${{ inputs.node-version }}
               cache: ${{ inputs.package-manager }}
+
+        # adjust package manager version
+
+        - name: Set npm version
+          if: ${{ inputs.package-manager == 'npm' }}
+          shell: ${{ runner.os == 'Windows' && 'pwsh' || 'bash' }}
+          run: npm install -g npm@${{ inputs.package-manager-version }}
+
+        - name: Set Yarn version
+          if: ${{ inputs.package-manager == 'yarn' }}
+          shell: ${{ runner.os == 'Windows' && 'pwsh' || 'bash' }}
+          run: npm install -g yarn@${{ inputs.package-manager-version }}
 
         # npm
 

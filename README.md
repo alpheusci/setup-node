@@ -24,6 +24,11 @@ Add this action to the workflow:
       # Default: pnpm
       package-manager: "pnpm"
 
+      # Node.js package manager version to use.
+      #
+      # Default: latest
+      package-manager-version: "latest"
+
       # Whether to install Node.js dependencies.
       #
       # Default: true
