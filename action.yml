@@ -54,7 +54,7 @@ runs:
 
         - name: Set Yarn version
           if: ${{ inputs.package-manager == 'yarn' }}
-          shell: ${{ runner.os == 'Windows' && 'pwsh' || 'bash' }}
+          shell: bash
           run: |
               npm uninstall -g yarn || true
 
