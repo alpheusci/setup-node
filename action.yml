@@ -52,15 +52,23 @@ runs:
 
         # adjust package manager version (yarn)
 
-        - name: Enable Corepack
-          if: ${{ inputs.package-manager == 'yarn' }}
-          shell: ${{ runner.os == 'Windows' && 'pwsh' || 'bash' }}
-          run: corepack enable
-
         - name: Set Yarn version
           if: ${{ inputs.package-manager == 'yarn' }}
           shell: ${{ runner.os == 'Windows' && 'pwsh' || 'bash' }}
-          run: corepack prepare yarn@${{ inputs.package-manager-version }} --activate
+          run: |
+              npm uninstall -g yarn || true
+
+              corepack enable
+
+              corepack prepare yarn@${{ inputs.package-manager-version }} --activate
+
+              hash -r
+
+              echo "Yarn binary: "
+              which yarn
+
+              echo "Yarn version: "
+              yarn --version
 
         # npm
 
