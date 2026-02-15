@@ -12,7 +12,12 @@ on:
 
 jobs:
     test:
-        name: ${{ matrix.os.name }} / Node ${{ matrix.node }} / ${{ matrix.pm.name }} / Frozen=${{ matrix.frozen-lockfile.name }}
+        name: >
+            ${{ matrix.os.name }} / 
+            Node ${{ matrix.node }} / 
+            ${{ matrix.pm.name }}@${{ matrix.pm.version }} / 
+            Frozen=${{ matrix.frozen-lockfile.name }}
+
         runs-on: ${{ matrix.os.code }}
 
         strategy:
@@ -35,10 +40,33 @@ jobs:
                 pm:
                     - name: npm
                       code: npm
+                      version: "10.0.0"
+                    - name: npm
+                      code: npm
+                      version: "11.0.0"
+                    - name: npm
+                      code: npm
+                      version: latest
+
                     - name: Yarn
                       code: yarn
+                      version: "3.0.0"
+                    - name: Yarn
+                      code: yarn
+                      version: "4.0.0"
+                    - name: Yarn
+                      code: yarn
+                      version: latest
+
                     - name: pnpm
                       code: pnpm
+                      version: "9.0.0"
+                    - name: pnpm
+                      code: pnpm
+                      version: "10.0.0"
+                    - name: pnpm
+                      code: pnpm
+                      version: latest
 
                 frozen-lockfile:
                     - name: True
@@ -55,6 +83,7 @@ jobs:
               with:
                   node-version: ${{ matrix.node }}
                   package-manager: ${{ matrix.pm.code }}
+                  package-manager-version: ${{ matrix.pm.version }}
                   frozen-lockfile: ${{ matrix.frozen-lockfile.code }}
 
             - name: Check Node.js version
