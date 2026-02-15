@@ -43,17 +43,24 @@ runs:
               node-version: ${{ inputs.node-version }}
               cache: ${{ inputs.package-manager }}
 
-        # adjust package manager version
+        # adjust package manager version (npm)
 
         - name: Set npm version
           if: ${{ inputs.package-manager == 'npm' }}
           shell: ${{ runner.os == 'Windows' && 'pwsh' || 'bash' }}
           run: npm install -g npm@${{ inputs.package-manager-version }}
 
+        # adjust package manager version (yarn)
+
+        - name: Enable Corepack
+          if: ${{ inputs.package-manager == 'yarn' }}
+          shell: ${{ runner.os == 'Windows' && 'pwsh' || 'bash' }}
+          run: corepack enable
+
         - name: Set Yarn version
           if: ${{ inputs.package-manager == 'yarn' }}
           shell: ${{ runner.os == 'Windows' && 'pwsh' || 'bash' }}
-          run: npm install -g yarn@${{ inputs.package-manager-version }}
+          run: corepack prepare yarn@${{ inputs.package-manager-version }} --activate
 
         # npm
 
