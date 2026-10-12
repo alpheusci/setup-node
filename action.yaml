@@ -33,7 +33,7 @@ runs:
     steps:
         - name: Install pnpm
           if: ${{ inputs.package-manager == 'pnpm' }}
-          uses: pnpm/action-setup@v4
+          uses: pnpm/action-setup@v6
           with:
               version: ${{ inputs.package-manager-version }}
 
